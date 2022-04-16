@@ -43,6 +43,11 @@ if [ $? -ne 0 ]; then
 	apt update
 	apt install -y wget
 fi
+which curl >/dev/null 2>&1
+if [ $? -ne 0 ]; then
+	apt update
+	apt install -y curl
+fi
 
 clear
 echo ""
@@ -66,11 +71,12 @@ echo -e "  ${YELLOW}13.Install serverstatus${RES}                       ${YELLOW
 echo ""
 echo -e "  ${YELLOW}15.Install essentials for Debian 10${RES}           ${YELLOW}16.Install docker aria2 & ariang${RES}"
 echo ""
-echo -e "${RED}Written by Richard, updated on 2022/01/23${RES}"
+echo -e "${RED}Written by Richard, updated on 2022/04/17${RES}"
 echo "==========================================================================="
 
 echo ""
 read -p "Please input the number you choose: " main_no
+
 
 if [ "$main_no" = "1" ]; then
 	wget https://raw.githubusercontent.com/hityne/ssh/master/mydd.sh && chmod a+x mydd.sh && bash mydd.sh
