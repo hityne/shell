@@ -59,7 +59,7 @@ echo -e "  ${YELLOW}1.DD system${RES}                                   ${YELLOW
 echo ""
 echo -e "  ${YELLOW}3.Install bt Panel${RES}                            ${YELLOW}4.Install v2ray${RES}"
 echo ""
-echo -e "  ${YELLOW}5.Modify SSH Port (for defaut port 22)${RES}        ${YELLOW}6.Unixbech一键跑分${RES}"
+echo -e "  ${YELLOW}5.Modify SSH Port${RES}                             ${YELLOW}6.Unixbech一键跑分${RES}"
 echo ""
 echo -e "  ${YELLOW}7.Install docker and docker-compose${RES}           ${YELLOW}8.Install docker filerun${RES}" 
 echo ""
