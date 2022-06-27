@@ -83,27 +83,32 @@ if [ "$main_no" = "1" ]; then
 elif [ "$main_no" = "2" ]; then
 	install_bbr
 elif [ "$main_no" = "3" ]; then
-	wget -O install.sh http://download.bt.cn/install/install-ubuntu_6.0.sh && bash install.sh
-	echo ""
-	read -p "Do you want to degrade to version 7.7  [y or n] " if_degrade
-	if [ "$if_degrade" = "y" ]; then
-		wget http://download.bt.cn/install/update/LinuxPanel-7.7.0.zip
-		unzip LinuxPanel-*
-		cd panel
-		bash update.sh
-		cd .. && rm -f LinuxPanel-*.zip && rm -rf panel
-		rm -f /www/server/panel/data/bind.pl
-		echo "BT 7.7 has been installed successfully."
-		echo ""
-		read -p "Do you want to hack to happy 7.7  [y or n] " if_hack
-		if [ "$if_hack" = "y" ]; then
-			curl http://download.moetas.com/install/update6.sh|bash
-		fi
+
+	read -p "Do you want to install aapanel(bt_international) [y or n (default)] " if_aapanel
+	if [ "$if_aapanel" = "y" ]; then
+		wget -O install.sh http://www.aapanel.com/script/install-ubuntu_6.0_en.sh && bash install.sh aapanel
 	else
-		echo "New BT version has been installed successfully."
+		wget -O install.sh http://download.bt.cn/install/install-ubuntu_6.0.sh && bash install.sh
+		echo ""
+		read -p "Do you want to degrade to version 7.7  [y or n (default)] " if_degrade
+		if [ "$if_degrade" = "y" ]; then
+			wget http://download.bt.cn/install/update/LinuxPanel-7.7.0.zip
+			unzip LinuxPanel-*
+			cd panel
+			bash update.sh
+			cd .. && rm -f LinuxPanel-*.zip && rm -rf panel
+			rm -f /www/server/panel/data/bind.pl
+			echo "BT 7.7 has been installed successfully."
+			echo ""
+			read -p "Do you want to hack to happy 7.7  [y or n (default)] " if_hack
+			if [ "$if_hack" = "y" ]; then
+				curl http://download.moetas.com/install/update6.sh|bash
+			fi
+		else
+			echo "New BT version has been installed successfully."
+			echo ""
+		fi
 	fi
-	
-	echo ""
 
 elif [ "$main_no" = "4" ]; then
 	wget -O v2ray.sh https://raw.githubusercontent.com/hityne/others/main/v2ray.sh && chmod a+x v2ray.sh && bash v2ray.sh
