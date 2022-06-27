@@ -69,7 +69,7 @@ echo -e "  ${YELLOW}11.Test speed (bench.sh)${RES}                      ${YELLOW
 echo ""
 echo -e "  ${YELLOW}13.Install serverstatus${RES}                       ${YELLOW}14.Git Commands cheklist${RES}"
 echo ""
-echo -e "  ${YELLOW}15.Install essentials for Debian 10${RES}           ${YELLOW}16.Install docker aria2 & ariang${RES}"
+echo -e "  ${YELLOW}15.Install essentials for Debian 10/11${RES}           ${YELLOW}16.Install docker aria2 & ariang${RES}"
 echo ""
 echo -e "${RED}Written by Richard, updated on 2022/04/17${RES}"
 echo "==========================================================================="
@@ -158,6 +158,17 @@ elif [ "$main_no" = "9" ]; then
 	rm -rf /etc/localtime
 	ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 	date -R
+	read -p "do you want to sync time automatically when starting system? [n (default) or y]  " ifsync
+	if [ "$ifsync" != "y" ]; then
+	wget https://github.com/hityne/shell/raw/main/mystart.sh && chmod +x mystart.sh && mv mystart.sh /etc/init.d/
+	update-rc.d mystart.sh defaults
+	echo "Startup has been configuired. "
+	service ntp stop                 
+    ntpdate us.pool.ntp.org          
+	service ntp start
+	date                
+				
+	fi
 elif [ "$main_no" = "10" ]; then
 	wget https://github.com/hityne/ssh/raw/master/dmytest.sh && chmod +x dmytest.sh && bash dmytest.sh && rm -f dmytest.sh
 	
