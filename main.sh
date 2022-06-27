@@ -223,7 +223,7 @@ elif [ "$main_no" = "14" ]; then
 	echo "COMING SOON"
 
 elif [ "$main_no" = "15" ]; then	
-	echo "安装debian10 必要组件"
+	echo "安装debian10/11 必要组件"
 	wget --no-check-certificate https://raw.githubusercontent.com/hityne/ssh/master/mydebian.sh && bash mydebian.sh && rm mydebian.sh
 
 elif [ "$main_no" = "16" ]; then	
