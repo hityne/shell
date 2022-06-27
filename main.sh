@@ -167,9 +167,9 @@ elif [ "$main_no" = "9" ]; then
 	service ntp stop                 
     ntpdate us.pool.ntp.org          
 	service ntp start
-	date -R              
-				
+	date -R              		
 	fi
+	
 elif [ "$main_no" = "10" ]; then
 	wget https://github.com/hityne/ssh/raw/master/dmytest.sh && chmod +x dmytest.sh && bash dmytest.sh && rm -f dmytest.sh
 	
