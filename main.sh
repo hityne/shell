@@ -159,7 +159,7 @@ elif [ "$main_no" = "9" ]; then
 	ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 	date -R
 	read -p "do you want to sync time automatically when starting system? [n (default) or y]  " ifsync
-	if [ "$ifsync" != "y" ]; then
+	if [ "$ifsync" = "y" ]; then
 	wget https://github.com/hityne/shell/raw/main/mystart.sh && chmod +x mystart.sh && mv mystart.sh /etc/init.d/
 	update-rc.d mystart.sh defaults
 	echo "Startup has been configuired. "
