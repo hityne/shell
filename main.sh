@@ -217,10 +217,8 @@ elif [ "$main_no" = "13" ]; then
 			nohup python3 /serverclient/client-linux.py SERVER=$SERVER_ip USER=$USER_id >/dev/null 2>&1 &
 			ps -e | grep python3
 		fi
-		
-		
-
 	fi
+	
 elif [ "$main_no" = "14" ]; then	
 	echo "COMING SOON"
 
