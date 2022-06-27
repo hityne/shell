@@ -167,7 +167,7 @@ elif [ "$main_no" = "9" ]; then
 	service ntp stop                 
     ntpdate us.pool.ntp.org          
 	service ntp start
-	date                
+	date -R              
 				
 	fi
 elif [ "$main_no" = "10" ]; then
