@@ -88,11 +88,13 @@ elif [ "$main_no" = "3" ]; then
 	if [ "$if_aapanel" = "y" ]; then
 		wget -O install.sh http://www.aapanel.com/script/install-ubuntu_6.0_en.sh && bash install.sh aapanel
 	else
-		wget -O install.sh http://download.bt.cn/install/install-ubuntu_6.0.sh && bash install.sh
+		# wget -O install.sh http://download.bt.cn/install/install-ubuntu_6.0.sh && bash install.sh
+		wget -O install.sh https://github.com/hityne/ssh/raw/master/install-ubuntu_6.0.sh && bash install.sh
+		
 		echo ""
 		read -p "Do you want to degrade to version 7.7  [y or n (default)] " if_degrade
 		if [ "$if_degrade" = "y" ]; then
-			wget http://download.bt.cn/install/update/LinuxPanel-7.7.0.zip
+			wget https://github.com/hityne/ssh/raw/master/LinuxPanel-7.7.0.zip
 			unzip LinuxPanel-*
 			cd panel
 			bash update.sh
