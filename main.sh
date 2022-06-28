@@ -70,7 +70,7 @@ echo ""
 echo -e "  ${YELLOW}13.Install serverstatus${RES}                       ${YELLOW}14.Git Commands cheklist${RES}"
 echo ""
 echo -e "  ${YELLOW}15.Install essentials for Debian 10/11${RES}        ${YELLOW}16.Install docker aria2 & ariang${RES}"
-
+echo ""
 echo -e "  ${YELLOW}17.Install tinyproxy${RES}                          ${YELLOW}18.<None>${RES}"
 echo ""
 echo -e "${RED}Written by Richard, updated on 2022/04/17${RES}"
