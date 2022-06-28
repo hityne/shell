@@ -233,6 +233,6 @@ elif [ "$main_no" = "16" ]; then
 elif [ "$main_no" = "17" ]; then	
 	wget --no-check-certificate https://github.com/hityne/ssh/raw/master/install_tinyproxy.sh && bash install_tinyproxy.sh && rm install_tinyproxy.sh
 else
-exit 0
+	exit 0
 
 fi
