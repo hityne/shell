@@ -69,7 +69,9 @@ echo -e "  ${YELLOW}11.Test speed (bench.sh)${RES}                      ${YELLOW
 echo ""
 echo -e "  ${YELLOW}13.Install serverstatus${RES}                       ${YELLOW}14.Git Commands cheklist${RES}"
 echo ""
-echo -e "  ${YELLOW}15.Install essentials for Debian 10/11${RES}           ${YELLOW}16.Install docker aria2 & ariang${RES}"
+echo -e "  ${YELLOW}15.Install essentials for Debian 10/11${RES}        ${YELLOW}16.Install docker aria2 & ariang${RES}"
+
+echo -e "  ${YELLOW}17.Install tinyproxy${RES}                          ${YELLOW}18.<None>${RES}"
 echo ""
 echo -e "${RED}Written by Richard, updated on 2022/04/17${RES}"
 echo "==========================================================================="
@@ -79,7 +81,7 @@ read -p "Please input the number you choose: " main_no
 
 
 if [ "$main_no" = "1" ]; then
-	wget https://raw.githubusercontent.com/hityne/ssh/master/mydd.sh && chmod a+x mydd.sh && bash mydd.sh
+	wget --no-check-certificate https://raw.githubusercontent.com/hityne/ssh/master/mydd.sh && chmod a+x mydd.sh && bash mydd.sh
 elif [ "$main_no" = "2" ]; then
 	install_bbr
 elif [ "$main_no" = "3" ]; then
@@ -89,12 +91,12 @@ elif [ "$main_no" = "3" ]; then
 		wget -O install.sh http://www.aapanel.com/script/install-ubuntu_6.0_en.sh && bash install.sh aapanel
 	else
 		wget -O install.sh http://download.bt.cn/install/install-ubuntu_6.0.sh && bash install.sh
-		# wget -O install.sh https://github.com/hityne/ssh/raw/master/install-ubuntu_6.0.sh && bash install.sh
+		# wget --no-check-certificate -O install.sh https://github.com/hityne/ssh/raw/master/install-ubuntu_6.0.sh && bash install.sh
 		
 		echo ""
 		read -p "Do you want to degrade to version 7.7  [y or n (default)] " if_degrade
 		if [ "$if_degrade" = "y" ]; then
-			# wget https://github.com/hityne/ssh/raw/master/LinuxPanel-7.7.0.zip
+			# wget --no-check-certificate https://github.com/hityne/ssh/raw/master/LinuxPanel-7.7.0.zip
 			wget http://download.bt.cn/install/update/LinuxPanel-7.7.0.zip
 			unzip LinuxPanel-*
 			cd LinuxPanel-7.7.0/panel
@@ -114,7 +116,7 @@ elif [ "$main_no" = "3" ]; then
 	fi
 
 elif [ "$main_no" = "4" ]; then
-	wget -O v2ray.sh https://raw.githubusercontent.com/hityne/others/main/v2ray.sh && chmod a+x v2ray.sh && bash v2ray.sh
+	wget --no-check-certificate -O v2ray.sh https://raw.githubusercontent.com/hityne/others/main/v2ray.sh && chmod a+x v2ray.sh && bash v2ray.sh
 elif [ "$main_no" = "5" ]; then
 	echo ""
 	echo "Please input the ssh port you want to use"
@@ -161,22 +163,21 @@ elif [ "$main_no" = "9" ]; then
 	date -R
 	read -p "do you want to sync time automatically when starting system? [n (default) or y]  " ifsync
 	if [ "$ifsync" = "y" ]; then
-	wget https://github.com/hityne/shell/raw/main/mystart.sh && chmod +x mystart.sh && mv mystart.sh /etc/init.d/
+	wget --no-check-certificate https://github.com/hityne/ssh/raw/master/mystart.sh && chmod +x mystart.sh && mv mystart.sh /etc/init.d/
 	update-rc.d mystart.sh defaults
 	echo "Startup has been configuired. "
-	service ntp stop                 
-    ntpdate us.pool.ntp.org          
-	service ntp start
+	/usr/sbin/ntpdate time.nist.gov|logger -t NTP
+	/usr/sbin/hwclock -w
 	date -R              		
 	fi
 elif [ "$main_no" = "10" ]; then
-	wget https://github.com/hityne/ssh/raw/master/dmytest.sh && chmod +x dmytest.sh && bash dmytest.sh && rm -f dmytest.sh
+	wget --no-check-certificate https://github.com/hityne/ssh/raw/master/dmytest.sh && chmod +x dmytest.sh && bash dmytest.sh && rm -f dmytest.sh
 	
 elif [ "$main_no" = "11" ]; then	
 	wget -qO- bench.sh | bash
 
 elif [ "$main_no" = "12" ]; then	
-	wget https://github.com/hityne/ssh/raw/master/install_python3_on_debian10.sh && chmod +x install_python3_on_debian10.sh && bash install_python3_on_debian10.sh && rm install_python3_on_debian10.sh
+	wget --no-check-certificate https://github.com/hityne/ssh/raw/master/install_python3_on_debian10.sh && chmod +x install_python3_on_debian10.sh && bash install_python3_on_debian10.sh && rm install_python3_on_debian10.sh
 
 elif [ "$main_no" = "13" ]; then	
 
@@ -229,7 +230,8 @@ elif [ "$main_no" = "15" ]; then
 elif [ "$main_no" = "16" ]; then	
 	echo "安装docker aria2 & ariang "
 	wget --no-check-certificate https://raw.githubusercontent.com/hityne/ssh/master/aria2_docker_install.sh && bash aria2_docker_install.sh && rm aria2_docker_install.sh
-
+elif [ "$main_no" = "17" ]; then	
+	wget --no-check-certificate https://github.com/hityne/ssh/raw/master/install_tinyproxy.sh && bash install_tinyproxy.sh && rm install_tinyproxy.sh
 else
 exit 0
 
