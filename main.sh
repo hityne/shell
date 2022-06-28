@@ -96,12 +96,12 @@ elif [ "$main_no" = "3" ]; then
 		echo ""
 		read -p "Do you want to degrade to version 7.7  [y or n (default)] " if_degrade
 		if [ "$if_degrade" = "y" ]; then
-			# wget --no-check-certificate https://github.com/hityne/ssh/raw/master/LinuxPanel-7.7.0.zip
-			wget http://download.bt.cn/install/update/LinuxPanel-7.7.0.zip
+			wget --no-check-certificate https://github.com/hityne/ssh/raw/master/LinuxPanel-7.7.0.zip
+			#wget http://download.bt.cn/install/update/LinuxPanel-7.7.0.zip
 			unzip LinuxPanel-*
-			cd LinuxPanel-7.7.0/panel
+			cd panel
 			bash update.sh
-			cd ../.. && rm -f LinuxPanel-*.zip && rm -rf LinuxPanel-7.7.0
+			cd ..&& rm -f LinuxPanel-*.zip && rm -rf panel
 			rm -f /www/server/panel/data/bind.pl
 			echo "BT 7.7 has been installed successfully."
 			echo ""
