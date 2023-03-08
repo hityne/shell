@@ -67,7 +67,7 @@ echo -e "  ${YELLOW}9.Set localtime to China zone${RES}                 ${YELLOW
 echo ""
 echo -e "  ${YELLOW}11.Test speed (bench.sh)${RES}                      ${YELLOW}12.Install python3${RES}"
 echo ""
-echo -e "  ${YELLOW}13.Install serverstatus${RES}                       ${YELLOW}14.Git Commands cheklist${RES}"
+echo -e "  ${YELLOW}13.Install serverstatus${RES}                       ${YELLOW}14.Install x-ui${RES}"
 echo ""
 echo -e "  ${YELLOW}15.Install essentials for Debian 10/11${RES}        ${YELLOW}16.Install docker aria2 & ariang${RES}"
 echo ""
@@ -221,7 +221,8 @@ elif [ "$main_no" = "13" ]; then
 	fi
 	
 elif [ "$main_no" = "14" ]; then	
-	echo "COMING SOON"
+	echo "安装x-ui面板"
+	bash <(curl -Ls https://raw.githubusercontent.com/vaxilu/x-ui/master/install.sh)
 
 elif [ "$main_no" = "15" ]; then	
 	echo "安装debian10/11 必要组件"
