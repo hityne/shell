@@ -177,7 +177,7 @@ elif [ "$main_no" = "11" ]; then
 	wget -qO- bench.sh | bash
 
 elif [ "$main_no" = "12" ]; then
-	read -p "do you want to install Python3.9.16[0] or Python3.10.11[1]? [0 (default) or 1] " v_option
+	read -p "do you want to install Python3.10.11[0] or Python3.9.16[1]? [0 (default) or 1] " v_option
 	if [ "$v_option" != "1" ]; then
 		wget --no-check-certificate -O install_python3.10_on_debain11.sh https://github.com/hityne/ssh/raw/master/install_python3.10_on_debain11.sh && chmod +x install_python3.10_on_debain11.sh && bash install_python3.10_on_debain11.sh && rm install_python3.10_on_debain11.sh
 	else
