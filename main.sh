@@ -71,7 +71,7 @@ echo -e "  ${YELLOW}13.Install serverstatus${RES}                       ${YELLOW
 echo ""
 echo -e "  ${YELLOW}15.Install essentials for Debian 10/11${RES}        ${YELLOW}16.Install docker aria2 & ariang${RES}"
 echo ""
-echo -e "  ${YELLOW}17.Install tinyproxy${RES}                          ${YELLOW}18.<None>${RES}"
+echo -e "  ${YELLOW}17.Install tinyproxy${RES}                          ${YELLOW}18.Download frp package${RES}"
 echo ""
 echo -e "${RED}Written by Richard, updated on 2022/04/17${RES}"
 echo "==========================================================================="
@@ -238,6 +238,9 @@ elif [ "$main_no" = "16" ]; then
 	wget --no-check-certificate https://raw.githubusercontent.com/hityne/ssh/master/aria2_docker_install.sh && bash aria2_docker_install.sh && rm aria2_docker_install.sh
 elif [ "$main_no" = "17" ]; then	
 	wget --no-check-certificate https://github.com/hityne/ssh/raw/master/install_tinyproxy.sh && bash install_tinyproxy.sh && rm install_tinyproxy.sh
+elif [ "$main_no" = "17" ]; then	
+	wget --no-check-certificate https://github.com/fatedier/frp/releases/download/v0.49.0/frp_0.49.0_linux_amd64.tar.gz
+
 else
 	exit 0
 
