@@ -238,7 +238,7 @@ elif [ "$main_no" = "16" ]; then
 	wget --no-check-certificate https://raw.githubusercontent.com/hityne/ssh/master/aria2_docker_install.sh && bash aria2_docker_install.sh && rm aria2_docker_install.sh
 elif [ "$main_no" = "17" ]; then	
 	wget --no-check-certificate https://github.com/hityne/ssh/raw/master/install_tinyproxy.sh && bash install_tinyproxy.sh && rm install_tinyproxy.sh
-elif [ "$main_no" = "17" ]; then	
+elif [ "$main_no" = "18" ]; then	
 	wget --no-check-certificate https://github.com/fatedier/frp/releases/download/v0.49.0/frp_0.49.0_linux_amd64.tar.gz
 
 else
