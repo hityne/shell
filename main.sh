@@ -227,7 +227,8 @@ elif [ "$main_no" = "13" ]; then
 	
 elif [ "$main_no" = "14" ]; then	
 	echo "安装x-ui面板"
-	bash <(curl -Ls https://raw.githubusercontent.com/vaxilu/x-ui/master/install.sh)
+	# bash <(curl -Ls https://raw.githubusercontent.com/vaxilu/x-ui/master/install.sh)
+ 	bash <(curl -Ls https://raw.githubusercontent.com/FranzKafkaYu/x-ui/master/install.sh)
 
 elif [ "$main_no" = "15" ]; then	
 	echo "安装debian10/11 必要组件"
