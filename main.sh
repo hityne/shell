@@ -128,7 +128,14 @@ elif [ "$main_no" = "5" ]; then
 	#Break here
 	read -n 1 -p "Press any key to continue..."
 	old_port=$(sed -n '/^Port/'p /etc/ssh/sshd_config)
-	sed -i "s/$old_port/Port $ssh_port/g" /etc/ssh/sshd_config
+	# sed -i "s/$old_port/Port $ssh_port/g" /etc/ssh/sshd_config
+ 	if [ -z "$old_port" ]; then
+	    # 如果没有找到 "Port" 行，则将新的 "Port" 行添加到文件末尾
+	    echo "Port $ssh_port" >> /etc/ssh/sshd_config
+	else
+	    # 否则，将旧的 "Port" 行替换为新的 "Port" 行
+	    sed -i "s/$old_port/Port $ssh_port/g" /etc/ssh/sshd_config
+	fi
 	systemctl restart ssh
 	echo""
 	echo "Service sshd has been restarted. Please use the new SSH port to login."
