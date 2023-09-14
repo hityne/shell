@@ -153,8 +153,9 @@ elif [ "$main_no" = "7" ]; then
 	fi
 	read -p "do you want to install docker-compose? [y (default) or n] " aaa
 	if [ "$aaa" != "n" ]; then
-		curl -L https://github.com/docker/compose/releases/download/1.17.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+		curl -L https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
 		chmod +x /usr/local/bin/docker-compose
+  		ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 		echo ""
 		docker-compose --version
 		echo "docker-compose has been installed."
