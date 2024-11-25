@@ -81,7 +81,13 @@ read -p "Please input the number you choose: " main_no
 
 
 if [ "$main_no" = "1" ]; then
-	wget --no-check-certificate https://raw.githubusercontent.com/hityne/ssh/master/mydd.sh && chmod a+x mydd.sh && bash mydd.sh
+	echo ""
+	read -p "Where are you from? [1 China Mainland or 2 Other Place (default)] " urplace
+	if [ "$urplace" = "1" ]; then
+		curl -O https://www.ghproxy.cc/https://raw.githubusercontent.com/bin456789/reinstall/main/reinstall.sh || wget -O reinstall.sh $_
+	else
+		curl -O https://raw.githubusercontent.com/bin456789/reinstall/main/reinstall.sh || wget -O reinstall.sh $_
+	fi
 elif [ "$main_no" = "2" ]; then
 	install_bbr
 elif [ "$main_no" = "3" ]; then
