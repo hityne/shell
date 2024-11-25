@@ -84,9 +84,9 @@ if [ "$main_no" = "1" ]; then
 	echo ""
 	read -p "Where are you from? [1 China Mainland or 2 Other Place (default)] " urplace
 	if [ "$urplace" = "1" ]; then
-		curl -O https://www.ghproxy.cc/https://raw.githubusercontent.com/bin456789/reinstall/main/reinstall.sh || wget -O reinstall.sh $_
+		curl -O https://www.ghproxy.cc/https://raw.githubusercontent.com/bin456789/reinstall/main/reinstall.sh || wget -O reinstall.sh $_ && bash reinstall.sh debian 12
 	else
-		curl -O https://raw.githubusercontent.com/bin456789/reinstall/main/reinstall.sh || wget -O reinstall.sh $_
+		curl -O https://raw.githubusercontent.com/bin456789/reinstall/main/reinstall.sh || wget -O reinstall.sh $_ && bash reinstall.sh debian 12
 	fi
 elif [ "$main_no" = "2" ]; then
 	install_bbr
