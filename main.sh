@@ -287,16 +287,27 @@ function install_serverstatus_client() {
 
 function install_xui() {
     echo "开始安装x-ui面板..."
-    local install_options="1) 官方版本  2) 开发版本(默认)"
-    read_user_input "请选择安装版本" "2" "version_choice" "$install_options"
+    local install_options="1) 官方版本  2) 开发版本  3) 3x-ui版本(默认)"
+    read_user_input "请选择安装版本" "3" "version_choice" "$install_options"
     
-    if [ "$version_choice" = "1" ]; then
-        echo "安装官方版本..."
-        bash <(curl -Ls https://raw.githubusercontent.com/vaxilu/x-ui/master/install.sh)
-    else
-        echo "安装开发版本..."
-        bash <(curl -Ls https://raw.githubusercontent.com/FranzKafkaYu/x-ui/master/install.sh)
-    fi
+    case "$version_choice" in
+        1)
+            echo "安装x-ui官方版本..."
+            bash <(curl -Ls https://raw.githubusercontent.com/vaxilu/x-ui/master/install.sh)
+            ;;
+        2)
+            echo "安装x-ui开发版本..."
+            bash <(curl -Ls https://raw.githubusercontent.com/FranzKafkaYu/x-ui/master/install.sh)
+            ;;
+        3)
+            echo "安装3x-ui版本..."
+            bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh)
+            ;;
+        *)
+            echo "无效的选项，安装3x-ui版本..."
+            bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh)
+            ;;
+    esac
 }
 
 function install_debian_essentials() {
