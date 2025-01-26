@@ -1,4 +1,4 @@
-# Linux VPS 管理脚本
+## Linux VPS 管理脚本
 
 一个的 Linux VPS 管理脚本，提供系统安装、优化、面板安装等多种功能。
 
