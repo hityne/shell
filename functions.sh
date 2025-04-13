@@ -10,7 +10,7 @@ function install_bbr() {
     if [[ $test1 == "net.ipv4.tcp_congestion_control = bbr" && $test2 == "net.core.default_qdisc = fq" ]]; then
         echo -e "${GREEN} BBR 已经启用啦...无需再安装${RES}"
     else
-        [[ ! $enable_bbr ]] && wget --no-check-certificate -O "${bbr_script}" "${GITHUB_MIRROR}/teddysun/across/raw/master/bbr.sh" && chmod 755 "${bbr_script}" && "${bbr_script}"
+        [[ ! $enable_bbr ]] && wget --no-check-certificate -O "${bbr_script}" "${GITHUB_MIRROR}/teddysun/across/raw/master/bbr.sh" && chmod 755 "${bbr_script}" && "${bbr_script}" && rm -f "${bbr_script}"
     fi
 }
 
@@ -26,6 +26,7 @@ function install_debian12() {
         curl -o "${reinstall_script}" https://raw.githubusercontent.com/bin456789/reinstall/main/reinstall.sh || wget -O "${reinstall_script}" $_
     fi
     bash "${reinstall_script}" debian 12
+    rm -f "${reinstall_script}"
 }
 
 # 安装宝塔面板
@@ -38,10 +39,10 @@ function install_bt_panel() {
     
     if [ "$panel_version" = "y" ]; then
         echo "正在安装国际版面板..."
-        wget -O "${install_script}" http://www.aapanel.com/script/install-ubuntu_6.0_en.sh && bash "${install_script}"
+        wget -O "${install_script}" http://www.aapanel.com/script/install-ubuntu_6.0_en.sh && bash "${install_script}" && rm -f "${install_script}"
     else
         echo "正在安装中文版面板..."
-        wget -O "${install_script}" http://download.bt.cn/install/install-ubuntu_6.0.sh && bash "${install_script}"
+        wget -O "${install_script}" http://download.bt.cn/install/install-ubuntu_6.0.sh && bash "${install_script}" && rm -f "${install_script}"
         
         local version_options="y) 降级到7.7版本  n) 保持最新版(默认)"
         read_user_input "是否需要降级面板版本" "n" "downgrade_version" "$version_options"
@@ -61,11 +62,15 @@ function install_bt_panel() {
             read_user_input "是否破解面板" "n" "crack_panel" "$crack_options"
             if [ "$crack_panel" = "y" ]; then
                 echo "正在破解面板..."
-                curl http://download.moetas.com/install/update6.sh|bash
+                local crack_script="${TEMP_DIR}/update6.sh"
+                curl -o "${crack_script}" http://download.moetas.com/install/update6.sh
+                bash "${crack_script}"
+                rm -f "${crack_script}"
             fi
         else
             echo "保持最新版本安装完成"
         fi
+        rm -f "${panel_zip}"
     fi
 }
 
@@ -159,6 +164,7 @@ function install_v2ray() {
     wget --no-check-certificate -O "${v2ray_script}" "${GITHUB_MIRROR}/hityne/others/raw/main/v2ray.sh"
     chmod a+x "${v2ray_script}"
     bash "${v2ray_script}"
+    rm -f "${v2ray_script}"
 }
 
 # 安装X-UI
@@ -167,24 +173,35 @@ function install_xui() {
     local install_options="1) 官方版本  2) 开发版本  3) 3x-ui版本(默认)"
     read_user_input "请选择安装版本" "3" "version_choice" "$install_options"
     
+    local install_script="${TEMP_DIR}/xui_install.sh"
+    
     case "$version_choice" in
         1)
             echo "安装x-ui官方版本..."
-            bash <(curl -Ls "${GITHUB_MIRROR}/vaxilu/x-ui/raw/master/install.sh")
+            wget --no-check-certificate -O "${install_script}" "${GITHUB_MIRROR}/vaxilu/x-ui/raw/master/install.sh"
             ;;
         2)
             echo "安装x-ui开发版本..."
-            bash <(curl -Ls "${GITHUB_MIRROR}/FranzKafkaYu/x-ui/raw/master/install.sh")
+            wget --no-check-certificate -O "${install_script}" "${GITHUB_MIRROR}/FranzKafkaYu/x-ui/raw/master/install.sh"
             ;;
         3)
             echo "安装3x-ui版本..."
-            bash <(curl -Ls "${GITHUB_MIRROR}/mhsanaei/3x-ui/raw/master/install.sh")
+            wget --no-check-certificate -O "${install_script}" "${GITHUB_MIRROR}/mhsanaei/3x-ui/raw/master/install.sh"
             ;;
         *)
             echo "无效的选项，安装3x-ui版本..."
-            bash <(curl -Ls "${GITHUB_MIRROR}/mhsanaei/3x-ui/raw/master/install.sh")
+            wget --no-check-certificate -O "${install_script}" "${GITHUB_MIRROR}/mhsanaei/3x-ui/raw/master/install.sh"
             ;;
     esac
+    
+    if [ -f "${install_script}" ]; then
+        chmod +x "${install_script}"
+        bash "${install_script}"
+        rm -f "${install_script}"
+    else
+        echo "错误：下载安装脚本失败"
+        return 1
+    fi
 }
 
 # 安装ServerStatus
@@ -270,6 +287,7 @@ function install_serverstatus_client() {
         nohup python3 "${client_script}" SERVER=$server_ip USER=$user_id >/dev/null 2>&1 &
         ps -e | grep python3
     fi
+    rm -f "${client_script}"
 }
 
 # 安装TinyProxy
@@ -279,6 +297,7 @@ function install_tinyproxy() {
     wget --no-check-certificate -O "${tinyproxy_script}" "${GITHUB_MIRROR}/hityne/ssh/raw/master/install_tinyproxy.sh"
     echo "执行TinyProxy安装脚本..."
     bash "${tinyproxy_script}"
+    rm -f "${tinyproxy_script}"
     echo "TinyProxy安装完成"
 }
 
@@ -313,6 +332,7 @@ function install_docker_and_docker_compose() {
         sh "${docker_script}"
         systemctl enable docker
         systemctl start docker
+        rm -f "${docker_script}"
         echo "Docker 服务已安装并启动"
     fi
     
@@ -345,6 +365,7 @@ function install_docker_filerun() {
     wget --no-check-certificate -O "${filerun_script}" "${GITHUB_MIRROR}/hityne/ssh/raw/master/filerun_docker_install.sh"
     echo "执行Filerun安装脚本..."
     bash "${filerun_script}"
+    rm -f "${filerun_script}"
     echo "Filerun安装完成"
 }
 
@@ -366,6 +387,7 @@ function install_docker_aria2() {
     wget --no-check-certificate -O "${aria2_script}" "${GITHUB_MIRROR}/hityne/ssh/raw/master/aria2_docker_install.sh"
     echo "执行Aria2安装脚本..."
     bash "${aria2_script}"
+    rm -f "${aria2_script}"
     echo "Aria2安装完成"
 }
 
@@ -377,6 +399,7 @@ function unixbench_score() {
     wget --no-check-certificate -O "${unixbench_script}" "${GITHUB_MIRROR}/teddysun/across/raw/master/unixbench.sh"
     chmod +x "${unixbench_script}"
     bash "${unixbench_script}"
+    rm -f "${unixbench_script}"
 }
 
 # 测试网速
@@ -387,11 +410,18 @@ function test_speed() {
     read_user_input "请选择测速工具" "2" "speed_tool" "$speed_options"
     
     if [ "$speed_tool" = "1" ]; then
-        wget -qO- bench.sh | bash
+        local bench_script="${TEMP_DIR}/bench.sh"
+        wget -O "${bench_script}" bench.sh
+        chmod +x "${bench_script}"
+        bash "${bench_script}"
+        rm -f "${bench_script}"
     else
         if ! command -v speedtest &>/dev/null; then
             echo "安装Speedtest CLI..."
-            curl -s https://packagecloud.io/install/repositories/ookla/speedtest-cli/script.deb.sh | bash
+            local speedtest_script="${TEMP_DIR}/speedtest.sh"
+            curl -o "${speedtest_script}" https://packagecloud.io/install/repositories/ookla/speedtest-cli/script.deb.sh
+            bash "${speedtest_script}"
+            rm -f "${speedtest_script}"
             apt install speedtest
         fi
         echo "执行Speedtest测速..."
@@ -405,6 +435,7 @@ function vps_info() {
     wget --no-check-certificate -O "${info_script}" "${GITHUB_MIRROR}/hityne/ssh/raw/master/dmytest.sh"
     chmod +x "${info_script}"
     bash "${info_script}"
+    rm -f "${info_script}"
 }
 
 # 安装Python3
@@ -425,5 +456,6 @@ function install_python3() {
     chmod +x "${install_script}"
     echo "开始安装Python..."
     bash "${install_script}"
+    rm -f "${install_script}"
     echo "Python安装完成"
 } 
