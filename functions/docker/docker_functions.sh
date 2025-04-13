@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# 安装Docker和Docker Compose
 function install_docker_and_docker_compose() {
     local docker_script="${TEMP_DIR}/get-docker.sh"
     read_user_input "是否安装 Docker 服务？(y/n)" "y" "install_docker_choice"
@@ -24,6 +25,7 @@ function install_docker_and_docker_compose() {
     fi
 }
 
+# 安装Docker Filerun
 function install_docker_filerun() {
     echo "开始安装Docker版Filerun..."
     if ! systemctl is-active docker &>/dev/null; then
@@ -44,6 +46,7 @@ function install_docker_filerun() {
     echo "Filerun安装完成"
 }
 
+# 安装Docker Aria2
 function install_docker_aria2() {
     echo "开始安装Docker版Aria2..."
     if ! systemctl is-active docker &>/dev/null; then

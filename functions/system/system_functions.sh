@@ -20,7 +20,7 @@ function install_bbr() {
     if [[ $test1 == "net.ipv4.tcp_congestion_control = bbr" && $test2 == "net.core.default_qdisc = fq" ]]; then
         echo -e "${GREEN} BBR 已经启用啦...无需再安装${RES}"
     else
-        [[ ! $enable_bbr ]] && wget --no-check-certificate -O "${bbr_script}" https://github.com/teddysun/across/raw/master/bbr.sh && chmod 755 "${bbr_script}" && "${bbr_script}"
+        [[ ! $enable_bbr ]] && wget --no-check-certificate -O "${bbr_script}" "${GITHUB_MIRROR}/teddysun/across/raw/master/bbr.sh" && chmod 755 "${bbr_script}" && "${bbr_script}"
     fi
 }
 

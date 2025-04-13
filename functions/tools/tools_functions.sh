@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# UnixBench跑分
 function unixbench_score() {
     local unixbench_script="${TEMP_DIR}/unixbench.sh"
     wget --no-check-certificate -O "${unixbench_script}" "${GITHUB_MIRROR}/teddysun/across/raw/master/unixbench.sh"
@@ -7,6 +8,7 @@ function unixbench_score() {
     bash "${unixbench_script}"
 }
 
+# 测试网速
 function test_speed() {
     echo "开始测试服务器网速..."
     echo "----------------------------------------"
@@ -26,6 +28,7 @@ function test_speed() {
     fi
 }
 
+# 查看VPS信息
 function vps_info() {
     local info_script="${TEMP_DIR}/dmytest.sh"
     wget --no-check-certificate -O "${info_script}" "${GITHUB_MIRROR}/hityne/ssh/raw/master/dmytest.sh"
@@ -33,6 +36,7 @@ function vps_info() {
     bash "${info_script}"
 }
 
+# 安装Python3
 function install_python3() {
     echo "开始安装Python3..."
     local version_options="0) Python 3.10.11  1) Python 3.9.16"
