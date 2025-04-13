@@ -198,7 +198,7 @@ function install_bt_panel() {
 
 # 添加GitHub镜像源选择函数
 function select_github_mirror() {
-    local mirror_options="1) 直接访问(默认)  2) ghproxy.com  3) gh.api.99988866.xyz  4) gh.ddlc.top"
+    local mirror_options="1) 直接访问(默认)  2) ghproxy.cc  3) gh.api.99988866.xyz  4) gh.ddlc.top"
     read_user_input "请选择GitHub镜像源" "1" "github_mirror" "$mirror_options"
     
     case "$github_mirror" in
@@ -206,7 +206,7 @@ function select_github_mirror() {
             GITHUB_URL="https://github.com"
             ;;
         2)
-            GITHUB_URL="https://ghproxy.com/https://github.com"
+            GITHUB_URL="https://www.ghproxy.cc/https://github.com"
             ;;
         3)
             GITHUB_URL="https://gh.api.99988866.xyz/https://github.com"
