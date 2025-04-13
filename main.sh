@@ -138,7 +138,8 @@ function init_github_mirror() {
     clear
     echo ""
     echo "Please select a GitHub mirror source"
-    local mirror_options="1) visit directly(default)  2) ghproxy.cc"
+    echo ""
+    mirror_options="1) visit directly(default)  2) ghproxy.cc"
     read_user_input "Your choice" "1" "github_mirror" "$mirror_options"
     
     case "$github_mirror" in
