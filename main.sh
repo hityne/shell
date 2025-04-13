@@ -135,8 +135,11 @@ function handle_menu() {
 
 # 修改GitHub镜像源选择函数
 function init_github_mirror() {
-    local mirror_options="1) 直接访问(默认)  2) ghproxy.cc  3) gh.api.99988866.xyz  4) gh.ddlc.top"
-    read_user_input "请选择GitHub镜像源" "1" "github_mirror" "$mirror_options"
+    clear
+    echo ""
+    echo "Please select a GitHub mirror source"
+    local mirror_options="1) visit directly(default)  2) ghproxy.cc"
+    read_user_input "Your choice" "1" "github_mirror" "$mirror_options"
     
     case "$github_mirror" in
         1)
