@@ -34,13 +34,10 @@ function install_bt_panel() {
     local install_script="${TEMP_DIR}/install.sh"
     local panel_zip="${TEMP_DIR}/LinuxPanel-7.7.0.zip"
     
-    local panel_options="y) 安装国际版(aapanel)  n) 安装中文版(默认)"
-    read_user_input "请选择宝塔面板版本" "n" "panel_version" "$panel_options"
+    local panel_options="y) 安装国际版(default)  n) 安装中文版"
+    read_user_input "请选择宝塔面板版本" "y" "panel_version" "$panel_options"
     
-    if [ "$panel_version" = "y" ]; then
-        echo "正在安装国际版面板..."
-        wget -O "${install_script}" http://www.aapanel.com/script/install-ubuntu_6.0_en.sh && bash "${install_script}" && rm -f "${install_script}"
-    else
+    if [ "$panel_version" = "n" ]; then
         echo "正在安装中文版面板..."
         wget -O "${install_script}" http://download.bt.cn/install/install-ubuntu_6.0.sh && bash "${install_script}" && rm -f "${install_script}"
         
@@ -71,6 +68,11 @@ function install_bt_panel() {
             echo "保持最新版本安装完成"
         fi
         rm -f "${panel_zip}"
+        
+    else
+        echo "正在安装国际版面板..."
+        wget -O "${install_script}" http://www.aapanel.com/script/install-ubuntu_6.0_en.sh && bash "${install_script}" && rm -f "${install_script}"
+        
     fi
 }
 
