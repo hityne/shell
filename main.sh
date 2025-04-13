@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# 获取脚本所在目录
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
 # 定义颜色变量
 RED='\E[1;31m'       # 红
 GREEN='\E[1;32m'    # 绿
@@ -159,11 +162,8 @@ function main() {
     # 初始化GitHub镜像源
     init_github_mirror
     
-    # 引入各个功能模块
-    source functions/system/system_functions.sh
-    source functions/network/network_functions.sh
-    source functions/docker/docker_functions.sh
-    source functions/tools/tools_functions.sh
+    # 引入功能模块
+    source "${SCRIPT_DIR}/functions.sh"
     
     show_menu
     read_user_input "请输入选项编号" "" "main_no"
