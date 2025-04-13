@@ -140,16 +140,16 @@ function init_github_mirror() {
     
     case "$github_mirror" in
         1)
-            GITHUB_MIRROR="https://github.com"
+            GITHUB_MIRROR=""
             ;;
         2)
-            GITHUB_MIRROR="https://www.ghproxy.cc/https://github.com"
+            GITHUB_MIRROR="https://www.ghproxy.cc"
             ;;
         3)
-            GITHUB_MIRROR="https://gh.api.99988866.xyz/https://github.com"
+            GITHUB_MIRROR="https://gh.api.99988866.xyz"
             ;;
         4)
-            GITHUB_MIRROR="https://gh.ddlc.top/https://github.com"
+            GITHUB_MIRROR="https://gh.ddlc.top"
             ;;
         *)
             GITHUB_MIRROR="https://github.com"
