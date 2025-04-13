@@ -11,6 +11,9 @@ RES='\E[0m'          # 清除颜色
 # 在文件开头添加临时目录定义
 TEMP_DIR="/tmp/vps_script"
 
+# 在文件开头添加全局变量
+GITHUB_MIRROR=""
+
 # 添加清理函数
 function cleanup_temp() {
     rm -rf "${TEMP_DIR}"
@@ -196,34 +199,33 @@ function install_bt_panel() {
     fi
 }
 
-# 添加GitHub镜像源选择函数
-function select_github_mirror() {
+# 修改GitHub镜像源选择函数
+function init_github_mirror() {
     local mirror_options="1) 直接访问(默认)  2) ghproxy.cc  3) gh.api.99988866.xyz  4) gh.ddlc.top"
     read_user_input "请选择GitHub镜像源" "1" "github_mirror" "$mirror_options"
     
     case "$github_mirror" in
         1)
-            GITHUB_URL="https://github.com"
+            GITHUB_MIRROR="https://github.com"
             ;;
         2)
-            GITHUB_URL="https://www.ghproxy.cc/https://github.com"
+            GITHUB_MIRROR="https://www.ghproxy.cc/https://github.com"
             ;;
         3)
-            GITHUB_URL="https://gh.api.99988866.xyz/https://github.com"
+            GITHUB_MIRROR="https://gh.api.99988866.xyz/https://github.com"
             ;;
         4)
-            GITHUB_URL="https://gh.ddlc.top/https://github.com"
+            GITHUB_MIRROR="https://gh.ddlc.top/https://github.com"
             ;;
         *)
-            GITHUB_URL="https://github.com"
+            GITHUB_MIRROR="https://github.com"
             ;;
     esac
 }
 
 function install_v2ray() {
-    select_github_mirror
     local v2ray_script="${TEMP_DIR}/v2ray.sh"
-    wget --no-check-certificate -O "${v2ray_script}" "${GITHUB_URL}/hityne/others/raw/main/v2ray.sh"
+    wget --no-check-certificate -O "${v2ray_script}" "${GITHUB_MIRROR}/hityne/others/raw/main/v2ray.sh"
     chmod a+x "${v2ray_script}"
     bash "${v2ray_script}"
 }
@@ -258,13 +260,10 @@ function install_serverstatus_server() {
     local config_dir="/serverstatus"
     mkdir -p "${config_dir}"
     
-    # 选择GitHub镜像源
-    select_github_mirror
-    
     # 下载配置文件
     echo "下载ServerStatus配置文件..."
     wget --no-check-certificate -qO "${config_dir}/serverstatus-config.json" \
-        "${GITHUB_URL}/cppla/ServerStatus/raw/master/server/config.json"
+        "${GITHUB_MIRROR}/cppla/ServerStatus/raw/master/server/config.json"
     
     # 创建流量统计目录
     mkdir -p "${config_dir}/serverstatus-monthtraffic"
@@ -289,10 +288,9 @@ function install_serverstatus_server() {
 }
 
 function install_serverstatus_client() {
-    select_github_mirror
     local client_script="${TEMP_DIR}/client-linux.py"
     mkdir -p /serverclient
-    wget --no-check-certificate -qO "${client_script}" "${GITHUB_URL}/cppla/ServerStatus/raw/master/clients/client-linux.py"
+    wget --no-check-certificate -qO "${client_script}" "${GITHUB_MIRROR}/cppla/ServerStatus/raw/master/clients/client-linux.py"
     
     echo "请输入ServerStatus服务器信息:"
     read_user_input "服务器IP地址" "" "server_ip"
@@ -319,24 +317,22 @@ function install_xui() {
     local install_options="1) 官方版本  2) 开发版本  3) 3x-ui版本(默认)"
     read_user_input "请选择安装版本" "3" "version_choice" "$install_options"
     
-    select_github_mirror
-    
     case "$version_choice" in
         1)
             echo "安装x-ui官方版本..."
-            bash <(curl -Ls "${GITHUB_URL}/vaxilu/x-ui/raw/master/install.sh")
+            bash <(curl -Ls "${GITHUB_MIRROR}/vaxilu/x-ui/raw/master/install.sh")
             ;;
         2)
             echo "安装x-ui开发版本..."
-            bash <(curl -Ls "${GITHUB_URL}/FranzKafkaYu/x-ui/raw/master/install.sh")
+            bash <(curl -Ls "${GITHUB_MIRROR}/FranzKafkaYu/x-ui/raw/master/install.sh")
             ;;
         3)
             echo "安装3x-ui版本..."
-            bash <(curl -Ls "${GITHUB_URL}/mhsanaei/3x-ui/raw/master/install.sh")
+            bash <(curl -Ls "${GITHUB_MIRROR}/mhsanaei/3x-ui/raw/master/install.sh")
             ;;
         *)
             echo "无效的选项，安装3x-ui版本..."
-            bash <(curl -Ls "${GITHUB_URL}/mhsanaei/3x-ui/raw/master/install.sh")
+            bash <(curl -Ls "${GITHUB_MIRROR}/mhsanaei/3x-ui/raw/master/install.sh")
             ;;
     esac
 }
@@ -361,12 +357,9 @@ function install_debian_essentials() {
     echo 'LANG="en_US.UTF-8"' >> /etc/profile
     source /etc/profile
     
-    # 选择GitHub镜像源
-    select_github_mirror
-    
     # vim右键复制粘贴
     echo "正在配置vim..."
-    wget --no-check-certificate -O /etc/vim/vimrc.local "${GITHUB_URL}/hityne/others/raw/main/vimrc.local"
+    wget --no-check-certificate -O /etc/vim/vimrc.local "${GITHUB_MIRROR}/hityne/others/raw/main/vimrc.local"
     
     # ssh控制台添加颜色
     echo "正在配置终端颜色..."
@@ -546,8 +539,11 @@ function install_python3() {
     echo "Python安装完成"
 }
 
-# 修改主函数调用
+# 修改主函数
 function main() {
+    # 初始化GitHub镜像源
+    init_github_mirror
+    
     show_menu
     read_user_input "请输入选项编号" "" "main_no"
     handle_menu "$main_no"
