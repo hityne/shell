@@ -310,12 +310,12 @@ function download_frp() {
     read_user_input "请选择FRP版本" "1" "frp_version" "$version_options"
     
     if [ "$frp_version" = "1" ]; then
-        local frp_package="$(dirname "$0") /frp_0.49.0_linux_amd64.tar.gz"
+        local frp_package="$(dirname "$0")/frp_0.61.2_linux_amd64.tar.gz"
         wget --no-check-certificate -O "${frp_package}" "${GITHUB_MIRROR}/https://github.com/fatedier/frp/releases/download/v0.61.2/frp_0.61.2_linux_amd64.tar.gz"
         echo "FRP v0.61.2下载完成: ${frp_package}"
     else
         read_user_input "请输入版本号(例如: 0.49.0)" "" "custom_version"
-        local frp_package="$(dirname "$0") /frp_${custom_version}_linux_amd64.tar.gz"
+        local frp_package="$(dirname "$0")/frp_${custom_version}_linux_amd64.tar.gz"
         wget --no-check-certificate -O "${frp_package}" "${GITHUB_MIRROR}/https://github.com/fatedier/frp/releases/download/v${custom_version}/frp_${custom_version}_linux_amd64.tar.gz"
         echo "FRP v${custom_version}下载完成: ${frp_package}"
     fi
