@@ -147,7 +147,7 @@ function init_github_mirror() {
             GITHUB_MIRROR=""
             ;;
         2)
-            GITHUB_MIRROR="https://www.ghproxy.cc"
+            GITHUB_MIRROR="https://www.ghproxy.cc/"
             ;;
         *)
             GITHUB_MIRROR="https://github.com"

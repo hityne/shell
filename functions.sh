@@ -10,7 +10,7 @@ function install_bbr() {
     if [[ $test1 == "net.ipv4.tcp_congestion_control = bbr" && $test2 == "net.core.default_qdisc = fq" ]]; then
         echo -e "${GREEN} BBR 已经启用啦...无需再安装${RES}"
     else
-        [[ ! $enable_bbr ]] && wget --no-check-certificate -O "${bbr_script}" "${GITHUB_MIRROR}/https://github.com/teddysun/across/raw/master/bbr.sh" && chmod 755 "${bbr_script}" && "${bbr_script}" && rm -f "${bbr_script}"
+        [[ ! $enable_bbr ]] && wget --no-check-certificate -O "${bbr_script}" "${GITHUB_MIRROR}https://github.com/teddysun/across/raw/master/bbr.sh" && chmod 755 "${bbr_script}" && "${bbr_script}" && rm -f "${bbr_script}"
     fi
 }
 
@@ -46,7 +46,7 @@ function install_bt_panel() {
         
         if [ "$downgrade_version" = "y" ]; then
             echo "正在降级到7.7版本..."
-            wget --no-check-certificate -O "${panel_zip}" "${GITHUB_MIRROR}/https://github.com/hityne/ssh/raw/master/LinuxPanel-7.7.0.zip"
+            wget --no-check-certificate -O "${panel_zip}" "${GITHUB_MIRROR}https://github.com/hityne/ssh/raw/master/LinuxPanel-7.7.0.zip"
             cd "${TEMP_DIR}"
             unzip "${panel_zip}"
             cd panel
@@ -113,7 +113,7 @@ function set_localtime_to_china_zone() {
     if [ "$auto_sync" = "y" ]; then
         local mystart_script="${TEMP_DIR}/mystart.sh"
         echo "配置自动同步..."
-        wget --no-check-certificate -O "${mystart_script}" "${GITHUB_MIRROR}/https://github.com/hityne/ssh/raw/master/mystart.sh"
+        wget --no-check-certificate -O "${mystart_script}" "${GITHUB_MIRROR}https://github.com/hityne/ssh/raw/master/mystart.sh"
         chmod +x "${mystart_script}"
         mv "${mystart_script}" /etc/init.d/mystart.sh
         update-rc.d mystart.sh defaults
@@ -148,7 +148,7 @@ function install_debian_essentials() {
     
     # vim右键复制粘贴
     echo "正在配置vim..."
-    wget --no-check-certificate -O /etc/vim/vimrc.local "${GITHUB_MIRROR}/https://github.com/hityne/others/raw/main/vimrc.local"
+    wget --no-check-certificate -O /etc/vim/vimrc.local "${GITHUB_MIRROR}https://github.com/hityne/others/raw/main/vimrc.local"
     
     # ssh控制台添加颜色
     echo "正在配置终端颜色..."
@@ -163,7 +163,7 @@ function install_debian_essentials() {
 # 安装V2ray
 function install_v2ray() {
     local v2ray_script="${TEMP_DIR}/v2ray.sh"
-    wget --no-check-certificate -O "${v2ray_script}" "${GITHUB_MIRROR}/https://github.com/hityne/others/raw/main/v2ray.sh"
+    wget --no-check-certificate -O "${v2ray_script}" "${GITHUB_MIRROR}https://github.com/hityne/others/raw/main/v2ray.sh"
     chmod a+x "${v2ray_script}"
     bash "${v2ray_script}"
     rm -f "${v2ray_script}"
@@ -180,19 +180,19 @@ function install_xui() {
     case "$version_choice" in
         1)
             echo "安装x-ui官方版本..."
-            wget --no-check-certificate -O "${install_script}" "${GITHUB_MIRROR}/https://github.com/vaxilu/x-ui/raw/refs/heads/main/install.sh"
+            wget --no-check-certificate -O "${install_script}" "${GITHUB_MIRROR}https://github.com/vaxilu/x-ui/raw/refs/heads/main/install.sh"
             ;;
         2)
             echo "安装x-ui开发版本..."
-            wget --no-check-certificate -O "${install_script}" "${GITHUB_MIRROR}/https://raw.githubusercontent.com/FranzKafkaYu/x-ui/refs/heads/main/install.sh"
+            wget --no-check-certificate -O "${install_script}" "${GITHUB_MIRROR}https://raw.githubusercontent.com/FranzKafkaYu/x-ui/refs/heads/main/install.sh"
             ;;
         3)
             echo "安装3x-ui版本..."
-            wget --no-check-certificate -O "${install_script}" "${GITHUB_MIRROR}/https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh"
+            wget --no-check-certificate -O "${install_script}" "${GITHUB_MIRROR}https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh"
             ;;
         *)
             echo "无效的选项，安装3x-ui版本..."
-            wget --no-check-certificate -O "${install_script}" "${GITHUB_MIRROR}/https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh"
+            wget --no-check-certificate -O "${install_script}" "${GITHUB_MIRROR}https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh"
             ;;
     esac
     
@@ -241,7 +241,7 @@ function install_serverstatus_server() {
     # 下载配置文件
     echo "下载ServerStatus配置文件..."
     wget --no-check-certificate -qO "${config_dir}/serverstatus-config.json" \
-        "${GITHUB_MIRROR}/https://github.com/cppla/ServerStatus/raw/master/server/config.json"
+        "${GITHUB_MIRROR}https://github.com/cppla/ServerStatus/raw/master/server/config.json"
     
     # 创建流量统计目录
     mkdir -p "${config_dir}/serverstatus-monthtraffic"
@@ -269,7 +269,7 @@ function install_serverstatus_server() {
 function install_serverstatus_client() {
     local client_script="${TEMP_DIR}/client-linux.py"
     mkdir -p /serverclient
-    wget --no-check-certificate -qO "${client_script}" "${GITHUB_MIRROR}/https://github.com/cppla/ServerStatus/raw/master/clients/client-linux.py"
+    wget --no-check-certificate -qO "${client_script}" "${GITHUB_MIRROR}https://github.com/cppla/ServerStatus/raw/master/clients/client-linux.py"
     
     echo "请输入ServerStatus服务器信息:"
     read_user_input "服务器IP地址" "" "server_ip"
@@ -296,7 +296,7 @@ function install_serverstatus_client() {
 function install_tinyproxy() {
     echo "开始安装TinyProxy代理服务器..."
     local tinyproxy_script="${TEMP_DIR}/install_tinyproxy.sh"
-    wget --no-check-certificate -O "${tinyproxy_script}" "${GITHUB_MIRROR}/https://github.com/hityne/ssh/raw/master/install_tinyproxy.sh"
+    wget --no-check-certificate -O "${tinyproxy_script}" "${GITHUB_MIRROR}https://github.com/hityne/ssh/raw/master/install_tinyproxy.sh"
     echo "执行TinyProxy安装脚本..."
     bash "${tinyproxy_script}"
     rm -f "${tinyproxy_script}"
@@ -311,12 +311,12 @@ function download_frp() {
     
     if [ "$frp_version" = "1" ]; then
         local frp_package="$(dirname "$0")/frp_0.61.2_linux_amd64.tar.gz"
-        wget --no-check-certificate -O "${frp_package}" "${GITHUB_MIRROR}/https://github.com/fatedier/frp/releases/download/v0.61.2/frp_0.61.2_linux_amd64.tar.gz"
+        wget --no-check-certificate -O "${frp_package}" "${GITHUB_MIRROR}https://github.com/fatedier/frp/releases/download/v0.61.2/frp_0.61.2_linux_amd64.tar.gz"
         echo "FRP v0.61.2下载完成: ${frp_package}"
     else
         read_user_input "请输入版本号(例如: 0.49.0)" "" "custom_version"
         local frp_package="$(dirname "$0")/frp_${custom_version}_linux_amd64.tar.gz"
-        wget --no-check-certificate -O "${frp_package}" "${GITHUB_MIRROR}/https://github.com/fatedier/frp/releases/download/v${custom_version}/frp_${custom_version}_linux_amd64.tar.gz"
+        wget --no-check-certificate -O "${frp_package}" "${GITHUB_MIRROR}https://github.com/fatedier/frp/releases/download/v${custom_version}/frp_${custom_version}_linux_amd64.tar.gz"
         echo "FRP v${custom_version}下载完成: ${frp_package}"
     fi
 }
@@ -341,7 +341,7 @@ function install_docker_and_docker_compose() {
     read_user_input "是否安装 Docker Compose？(y/n)" "y" "install_compose_choice"
     if [ "$install_compose_choice" != "n" ]; then
         echo "正在安装 Docker Compose..."
-        curl -L "${GITHUB_MIRROR}/https://github.com/docker/compose/releases/download/v2.27.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+        curl -L "${GITHUB_MIRROR}https://github.com/docker/compose/releases/download/v2.27.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
         chmod +x /usr/local/bin/docker-compose
         ln -sf /usr/local/bin/docker-compose /usr/bin/docker-compose
         docker-compose --version
@@ -364,7 +364,7 @@ function install_docker_filerun() {
     fi
     
     local filerun_script="${TEMP_DIR}/filerun_docker_install.sh"
-    wget --no-check-certificate -O "${filerun_script}" "${GITHUB_MIRROR}/https://github.com/hityne/ssh/raw/master/filerun_docker_install.sh"
+    wget --no-check-certificate -O "${filerun_script}" "${GITHUB_MIRROR}https://github.com/hityne/ssh/raw/master/filerun_docker_install.sh"
     echo "执行Filerun安装脚本..."
     bash "${filerun_script}"
     rm -f "${filerun_script}"
@@ -386,7 +386,7 @@ function install_docker_aria2() {
     fi
     
     local aria2_script="${TEMP_DIR}/aria2_docker_install.sh"
-    wget --no-check-certificate -O "${aria2_script}" "${GITHUB_MIRROR}/https://github.com/hityne/ssh/raw/master/aria2_docker_install.sh"
+    wget --no-check-certificate -O "${aria2_script}" "${GITHUB_MIRROR}https://github.com/hityne/ssh/raw/master/aria2_docker_install.sh"
     echo "执行Aria2安装脚本..."
     bash "${aria2_script}"
     rm -f "${aria2_script}"
@@ -398,7 +398,7 @@ function install_docker_aria2() {
 # UnixBench跑分
 function unixbench_score() {
     local unixbench_script="${TEMP_DIR}/unixbench.sh"
-    wget --no-check-certificate -O "${unixbench_script}" "${GITHUB_MIRROR}/https://github.com/teddysun/across/raw/master/unixbench.sh"
+    wget --no-check-certificate -O "${unixbench_script}" "${GITHUB_MIRROR}https://github.com/teddysun/across/raw/master/unixbench.sh"
     chmod +x "${unixbench_script}"
     bash "${unixbench_script}"
     rm -f "${unixbench_script}"
@@ -434,7 +434,7 @@ function test_speed() {
 # 查看VPS信息
 function vps_info() {
     local info_script="${TEMP_DIR}/dmytest.sh"
-    wget --no-check-certificate -O "${info_script}" "${GITHUB_MIRROR}/https://github.com/hityne/ssh/raw/master/dmytest.sh"
+    wget --no-check-certificate -O "${info_script}" "${GITHUB_MIRROR}https://github.com/hityne/ssh/raw/master/dmytest.sh"
     chmod +x "${info_script}"
     bash "${info_script}"
     rm -f "${info_script}"
@@ -449,10 +449,10 @@ function install_python3() {
     local install_script="${TEMP_DIR}/install_python.sh"
     if [ "$python_version" = "0" ]; then
         echo "准备安装Python 3.10.11..."
-        wget --no-check-certificate -O "${install_script}" "${GITHUB_MIRROR}/https://github.com/hityne/ssh/raw/master/install_python3.10_on_debain11.sh"
+        wget --no-check-certificate -O "${install_script}" "${GITHUB_MIRROR}https://github.com/hityne/ssh/raw/master/install_python3.10_on_debain11.sh"
     else
         echo "准备安装Python 3.9.16..."
-        wget --no-check-certificate -O "${install_script}" "${GITHUB_MIRROR}/https://github.com/hityne/ssh/raw/master/install_python3.9_on_debian11.sh"
+        wget --no-check-certificate -O "${install_script}" "${GITHUB_MIRROR}https://github.com/hityne/ssh/raw/master/install_python3.9_on_debian11.sh"
     fi
     
     chmod +x "${install_script}"
