@@ -65,22 +65,21 @@ function show_menu() {
     echo -e "${GREEN}当前IP: $MAINIP${RES}"
     echo ""
     echo -e "${BLUE}${MENU_SYSTEM}:${RES}"
-    echo -e "  ${YELLOW}1.安装Debian12${RES}                            ${YELLOW}2.安装BBR${RES}"
-    echo -e "  ${YELLOW}3.安装宝塔面板国际版${RES}                       ${YELLOW}4.修改SSH端口${RES}"
-    echo -e "  ${YELLOW}5.设置中国时区${RES}                             ${YELLOW}6.安装Debian必备组件${RES}"
+    echo -e "  ${YELLOW}1.安装 Debian12${RES}                            ${YELLOW}2.安装 BBR${RES}"
+    echo -e "  ${YELLOW}3.安装宝塔面板国际版${RES}                        ${YELLOW}4.修改 SSH 端口${RES}"
+    echo -e "  ${YELLOW}5.设置中国时区${RES}                              ${YELLOW}6.安装 Debian 必备组件${RES}"
     echo ""
     echo -e "${BLUE}${MENU_NETWORK}:${RES}"
-    echo -e "  ${YELLOW}7.空位${RES}                                   ${YELLOW}8.安装X-UI${RES}"
-    echo -e "  ${YELLOW}9.安装ServerStatus${RES}                       ${YELLOW}10.安装TinyProxy${RES}"
-    echo -e "  ${YELLOW}11.下载FRP包${RES}"
+    echo -e "  ${YELLOW}7.安装 X-UI${RES}                                ${YELLOW}8.安装 ServerStatus${RES}"
+    echo -e "  ${YELLOW}9.安装 TinyProxy${RES}                           ${YELLOW}10.下载 FRP 包${RES}"
     echo ""
     echo -e "${BLUE}${MENU_DOCKER}:${RES}"
-    echo -e "  ${YELLOW}12.安装Docker/Compose${RES}                    ${YELLOW}13.安装Docker Filerun${RES}"
-    echo -e "  ${YELLOW}14.安装Docker Aria2${RES}"
+    echo -e "  ${YELLOW}11.安装 Docker/Compose${RES}                     ${YELLOW}12.安装 Docker Filerun${RES}"
+    echo -e "  ${YELLOW}13.安装 Docker Aria2${RES}"
     echo ""
     echo -e "${BLUE}${MENU_TOOLS}:${RES}"
-    echo -e "  ${YELLOW}15.UnixBench 跑分${RES}                        ${YELLOW}16.测试网速${RES}"
-    echo -e "  ${YELLOW}17.查看VPS信息${RES}                           ${YELLOW}18.安装Python3${RES}"
+    echo -e "  ${YELLOW}14.UnixBench 跑分${RES}                          ${YELLOW}15.测试网速${RES}"
+    echo -e "  ${YELLOW}16.查看 VPS 信息${RES}                           ${YELLOW}17.安装 Python3 ${RES}"
     echo ""
     echo -e "${RED}作者: Richard    更新时间: 2025/04/24${RES}"
     echo "==========================================================================="
@@ -114,18 +113,17 @@ function handle_menu() {
         4) modify_ssh_port ;;
         5) set_localtime_to_china_zone ;;
         6) install_debian_essentials ;;
-        7) *** ;;
-        8) install_xui ;;
-        9) install_serverstatus ;;
-        10) install_tinyproxy ;;
-        11) download_frp ;;
-        12) install_docker_and_docker_compose ;;
-        13) install_docker_filerun ;;
-        14) install_docker_aria2 ;;
-        15) unixbench_score ;;
-        16) test_speed ;;
-        17) vps_info ;;
-        18) install_python3 ;;
+        7) install_xui ;;
+        8) install_serverstatus ;;
+        9) install_tinyproxy ;;
+        10) download_frp ;;
+        11) install_docker_and_docker_compose ;;
+        12) install_docker_filerun ;;
+        13) install_docker_aria2 ;;
+        14) unixbench_score ;;
+        15) test_speed ;;
+        16) vps_info ;;
+        17) install_python3 ;;
         *) 
             echo "Invalid option"
             exit 1
