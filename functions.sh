@@ -368,16 +368,10 @@ function unixbench_score() {
 function test_speed() {
     echo "开始测试服务器网速..."
     echo "----------------------------------------"
-    local speed_options="1) Bench.sh  2) Speedtest(默认)"
-    read_user_input "请选择测速工具" "2" "speed_tool" "$speed_options"
+    local speed_options="1) Bench.sh(默认)  2) Speedtest"
+    read_user_input "请选择测速工具" "1" "speed_tool" "$speed_options"
     
-    if [ "$speed_tool" = "1" ]; then
-        local bench_script="${TEMP_DIR}/bench.sh"
-        wget -O "${bench_script}" bench.sh
-        chmod +x "${bench_script}"
-        bash "${bench_script}"
-        rm -f "${bench_script}"
-    else
+    if [ "$speed_tool" = "2" ]; then
         if ! command -v speedtest &>/dev/null; then
             echo "安装Speedtest CLI..."
             local speedtest_script="${TEMP_DIR}/speedtest.sh"
@@ -388,6 +382,12 @@ function test_speed() {
         fi
         echo "执行Speedtest测速..."
         speedtest
+    else
+        local bench_script="${TEMP_DIR}/bench.sh"
+        wget -O "${bench_script}" bench.sh
+        chmod +x "${bench_script}"
+        bash "${bench_script}"
+        rm -f "${bench_script}"
     fi
 }
 
