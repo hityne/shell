@@ -32,48 +32,8 @@ function install_debian12() {
 # 安装宝塔面板
 function install_bt_panel() {
     local install_script="${TEMP_DIR}/install.sh"
-    local panel_zip="${TEMP_DIR}/LinuxPanel-7.7.0.zip"
-    
-    local panel_options="y) 安装国际版(default)  n) 安装中文版"
-    read_user_input "请选择宝塔面板版本" "y" "panel_version" "$panel_options"
-    
-    if [ "$panel_version" = "n" ]; then
-        echo "正在安装中文版面板..."
-        wget -O "${install_script}" http://download.bt.cn/install/install-ubuntu_6.0.sh && bash "${install_script}" && rm -f "${install_script}"
-        
-        local version_options="y) 降级到7.7版本  n) 保持最新版(默认)"
-        read_user_input "是否需要降级面板版本" "n" "downgrade_version" "$version_options"
-        
-        if [ "$downgrade_version" = "y" ]; then
-            echo "正在降级到7.7版本..."
-            wget --no-check-certificate -O "${panel_zip}" "${GITHUB_MIRROR}https://github.com/hityne/ssh/raw/master/LinuxPanel-7.7.0.zip"
-            cd "${TEMP_DIR}"
-            unzip "${panel_zip}"
-            cd panel
-            bash update.sh
-            cd - > /dev/null
-            rm -f /www/server/panel/data/bind.pl
-            echo "宝塔面板已降级到7.7版本"
-            
-            local crack_options="y) 破解面板  n) 保持原样(默认)"
-            read_user_input "是否破解面板" "n" "crack_panel" "$crack_options"
-            if [ "$crack_panel" = "y" ]; then
-                echo "正在破解面板..."
-                local crack_script="${TEMP_DIR}/update6.sh"
-                curl -o "${crack_script}" http://download.moetas.com/install/update6.sh
-                bash "${crack_script}"
-                rm -f "${crack_script}"
-            fi
-        else
-            echo "保持最新版本安装完成"
-        fi
-        rm -f "${panel_zip}"
-        
-    else
-        echo "正在安装国际版面板..."
-        wget -O "${install_script}" http://www.aapanel.com/script/install-ubuntu_6.0_en.sh && bash "${install_script}" && rm -f "${install_script}"
-        
-    fi
+    echo "正在安装国际版面板..."
+    wget -O "${install_script}" http://www.aapanel.com/script/install-ubuntu_6.0_en.sh && bash "${install_script}" && rm -f "${install_script}"
 }
 
 # 修改SSH端口
