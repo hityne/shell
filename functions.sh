@@ -21,7 +21,7 @@ function install_debian12() {
     
     local reinstall_script="${TEMP_DIR}/reinstall.sh"
     if [ "$region" = "1" ]; then
-        curl -o "${reinstall_script}" https://www.ghproxy.cc/https://raw.githubusercontent.com/bin456789/reinstall/main/reinstall.sh || wget -O "${reinstall_script}" $_
+        curl -o "${reinstall_script}" https://gh-proxy.org/https://raw.githubusercontent.com/bin456789/reinstall/main/reinstall.sh || wget -O "${reinstall_script}" $_
     else
         curl -o "${reinstall_script}" https://raw.githubusercontent.com/bin456789/reinstall/main/reinstall.sh || wget -O "${reinstall_script}" $_
     fi
