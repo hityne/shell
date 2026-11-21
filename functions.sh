@@ -388,10 +388,10 @@ function install_hermes() {
         return 0
     fi
     echo "正在安装 Hermes Agent..."
-    # 无头 VPS 常缺 X11 库，缺失会导致收尾安装 cua-driver 校验失败（libXi.so.6）
+    # 无头 VPS 常缺 X11 库；这是 cua-driver 二进制 ldd 实测的完整依赖（缺任一个都会导致收尾阶段报错）
     if command -v apt-get >/dev/null 2>&1; then
         echo "预装 X11 依赖库..."
-        apt-get update -qq && apt-get install -y -qq libxi6 libxrender1 libxext6 libxtst6 libxrandr2 libxfixes3 >/dev/null
+        apt-get update -qq && apt-get install -y -qq libx11-6 libxi6 libxkbcommon0 libxcb1 libxext6 >/dev/null
     fi
     curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
     # 安装器把命令装到 ~/.local/bin，当前 shell 的 PATH 可能还没包含
