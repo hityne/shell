@@ -65,7 +65,7 @@ function show_menu() {
     echo -e "${GREEN}当前IP: $MAINIP${RES}"
     echo ""
     echo -e "${BLUE}${MENU_SYSTEM}:${RES}"
-    echo -e "  ${YELLOW}1.安装 Debian 12${RES}                            ${YELLOW}2.安装 BBR${RES}"
+    echo -e "  ${YELLOW}1.重装系统${RES}                                  ${YELLOW}2.安装 BBR${RES}"
     echo -e "  ${YELLOW}3.安装宝塔面板国际版${RES}                        ${YELLOW}4.修改 SSH 端口${RES}"
     echo -e "  ${YELLOW}5.设置中国时区${RES}                              ${YELLOW}6.安装 Debian 必备组件${RES}"
     echo ""

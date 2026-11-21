@@ -14,18 +14,46 @@ function install_bbr() {
     fi
 }
 
-# 安装Debian 12
+# 重装系统（基于 https://github.com/bin456789/reinstall）
 function install_debian12() {
+    echo ""
+    echo -e "${RED}警告：重装会清空整个硬盘的全部数据！${RES}"
+    echo -e "脚本运行后、重启前可随时用 ${YELLOW}bash reinstall.sh reset${RES} 取消重装"
+    echo ""
+    local confirm_options="1) 继续  2) 取消"
+    read_user_input "确认继续吗" "2" "confirm" "$confirm_options"
+    if [ "$confirm" != "1" ]; then
+        echo "已取消重装"
+        return 0
+    fi
+
+    local os_options="1) Debian 12  2) Debian 13  3) Ubuntu 22.04  4) Ubuntu 24.04  5) Ubuntu 26.04"
+    read_user_input "请选择要安装的系统" "1" "os_choice" "$os_options"
+
+    local distro version
+    case "$os_choice" in
+        1) distro="debian"; version="12" ;;
+        2) distro="debian"; version="13" ;;
+        3) distro="ubuntu"; version="22.04" ;;
+        4) distro="ubuntu"; version="24.04" ;;
+        5) distro="ubuntu"; version="26.04" ;;
+        *)
+            echo "Invalid option"
+            return 1
+            ;;
+    esac
+
     local region_options="1) 中国大陆  2) 其他地区"
     read_user_input "请选择您的地区" "2" "region" "$region_options"
-    
+
     local reinstall_script="${TEMP_DIR}/reinstall.sh"
     if [ "$region" = "1" ]; then
-        curl -o "${reinstall_script}" https://gh-proxy.org/https://raw.githubusercontent.com/bin456789/reinstall/main/reinstall.sh || wget -O "${reinstall_script}" $_
+        # 大陆优先用上游官方国内源 cnb.cool，失败再走 gh-proxy.org 加速
+        curl -o "${reinstall_script}" https://cnb.cool/bin456789/reinstall/-/git/raw/main/reinstall.sh || wget -O "${reinstall_script}" https://gh-proxy.org/https://raw.githubusercontent.com/bin456789/reinstall/main/reinstall.sh
     else
         curl -o "${reinstall_script}" https://raw.githubusercontent.com/bin456789/reinstall/main/reinstall.sh || wget -O "${reinstall_script}" $_
     fi
-    bash "${reinstall_script}" debian 12
+    bash "${reinstall_script}" "${distro}" "${version}"
     rm -f "${reinstall_script}"
 }
 
