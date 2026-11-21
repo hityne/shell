@@ -388,8 +388,17 @@ function install_hermes() {
         return 0
     fi
     echo "正在安装 Hermes Agent（服务器无 GUI，跳过电脑操控组件 cua-driver）..."
-    # cua-driver 是电脑操控工具，需要 X11 图形库，无 GUI 的 VPS 用不上；
-    # 该选择会被安装器记住，以后 hermes update 也不会再尝试安装
+    # cua-driver 需要 X11 图形库，无 GUI 的 VPS 用不上；--skip-computer-use 记录跳过偏好
+    # 注意：安装器 products 阶段还会无条件刷新工具库里已有的 cua-driver 记录，
+    # 失败会直接中断 hermes 命令发布，且不受 --skip 开关控制，需在 config.yaml 关闭该刷新
+    local cfg="${HOME}/.hermes/config.yaml"
+    if [ -f "$cfg" ]; then
+        if grep -q '^updates:' "$cfg"; then
+            grep -q 'refresh_cua_driver' "$cfg" || sed -i 's/^updates:[[:space:]]*$/&\n  refresh_cua_driver: false/' "$cfg"
+        else
+            printf '\nupdates:\n  refresh_cua_driver: false\n' >> "$cfg"
+        fi
+    fi
     curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash -s -- --skip-computer-use
     # 安装器把命令装到 ~/.local/bin，当前 shell 的 PATH 可能还没包含
     export PATH="${HOME}/.local/bin:${PATH}"
