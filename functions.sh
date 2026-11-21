@@ -388,11 +388,20 @@ function install_hermes() {
         return 0
     fi
     echo "正在安装 Hermes Agent..."
+    # 无头 VPS 常缺 X11 库，缺失会导致收尾安装 cua-driver 校验失败（libXi.so.6）
+    if command -v apt-get >/dev/null 2>&1; then
+        echo "预装 X11 依赖库..."
+        apt-get update -qq && apt-get install -y -qq libxi6 libxrender1 libxext6 libxtst6 libxrandr2 libxfixes3 >/dev/null
+    fi
     curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
+    # 安装器把命令装到 ~/.local/bin，当前 shell 的 PATH 可能还没包含
+    export PATH="${HOME}/.local/bin:${PATH}"
     if command -v hermes >/dev/null 2>&1; then
         echo -e "${GREEN}Hermes 安装完成！运行 ${YELLOW}hermes setup${RES}${GREEN} 配置模型和 API 密钥${RES}"
+        echo -e "若有工具缺依赖报错，运行 ${YELLOW}hermes pm doctor${RES}${GREEN} 检查修复${RES}"
     else
-        echo -e "${RED}安装可能未完成，请检查上方输出${RES}"
+        echo -e "${YELLOW}hermes 命令暂未进入当前 PATH，重新登录后运行 hermes --version 验证${RES}"
+        echo -e "${YELLOW}详细日志: ~/.hermes/logs/install.log${RES}"
     fi
 }
 
