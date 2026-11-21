@@ -387,13 +387,10 @@ function install_hermes() {
         echo -e "${GREEN}Hermes 已安装 ($(hermes --version 2>/dev/null | head -1))，如需更新请运行 hermes update 或重装${RES}"
         return 0
     fi
-    echo "正在安装 Hermes Agent..."
-    # 无头 VPS 常缺 X11 库；这是 cua-driver 二进制 ldd 实测的完整依赖（缺任一个都会导致收尾阶段报错）
-    if command -v apt-get >/dev/null 2>&1; then
-        echo "预装 X11 依赖库..."
-        apt-get update -qq && apt-get install -y -qq libx11-6 libxi6 libxkbcommon0 libxcb1 libxext6 >/dev/null
-    fi
-    curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
+    echo "正在安装 Hermes Agent（服务器无 GUI，跳过电脑操控组件 cua-driver）..."
+    # cua-driver 是电脑操控工具，需要 X11 图形库，无 GUI 的 VPS 用不上；
+    # 该选择会被安装器记住，以后 hermes update 也不会再尝试安装
+    curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash -s -- --skip-computer-use
     # 安装器把命令装到 ~/.local/bin，当前 shell 的 PATH 可能还没包含
     export PATH="${HOME}/.local/bin:${PATH}"
     if command -v hermes >/dev/null 2>&1; then
