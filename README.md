@@ -29,6 +29,7 @@
 - 网速测试（支持 Bench.sh 和 Speedtest）
 - VPS 信息查看
 - Python3 安装（支持 3.9 和 3.10 版本）
+- 一键安装 Hermes Agent（Nous Research 的终端 AI Agent）
 
 ## 使用说明
 

@@ -80,6 +80,7 @@ function show_menu() {
     echo -e "${BLUE}${MENU_TOOLS}:${RES}"
     echo -e "  ${YELLOW}14.UnixBench 跑分${RES}                           ${YELLOW}15.测试网速${RES}"
     echo -e "  ${YELLOW}16.查看 VPS 信息${RES}                            ${YELLOW}17.安装 Python3${RES}"
+    echo -e "  ${YELLOW}18.一键安装 Hermes${RES}"
     echo ""
     echo -e "${RED}作者: Richard    更新时间: 2025/04/24${RES}"
     echo "==========================================================================="
@@ -124,6 +125,7 @@ function handle_menu() {
         15) test_speed ;;
         16) vps_info ;;
         17) install_python3 ;;
+        18) install_hermes ;;
         *) 
             echo "Invalid option"
             exit 1

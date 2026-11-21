@@ -381,6 +381,21 @@ function install_docker_aria2() {
     echo "Aria2安装完成"
 }
 
+# 一键安装 Hermes Agent（https://github.com/NousResearch/hermes-agent）
+function install_hermes() {
+    if command -v hermes >/dev/null 2>&1; then
+        echo -e "${GREEN}Hermes 已安装 ($(hermes --version 2>/dev/null | head -1))，如需更新请运行 hermes update 或重装${RES}"
+        return 0
+    fi
+    echo "正在安装 Hermes Agent..."
+    curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
+    if command -v hermes >/dev/null 2>&1; then
+        echo -e "${GREEN}Hermes 安装完成！运行 ${YELLOW}hermes setup${RES}${GREEN} 配置模型和 API 密钥${RES}"
+    else
+        echo -e "${RED}安装可能未完成，请检查上方输出${RES}"
+    fi
+}
+
 # ==================== 工具相关功能 ====================
 
 # UnixBench跑分
