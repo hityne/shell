@@ -14,7 +14,7 @@
 
 ### 网络相关
 - 安装 V2ray
-- 安装 X-UI（支持多个版本）
+- 安装 X-UI（3x-ui，活跃维护版）
 - 安装 ServerStatus（服务端和客户端）
 - 安装 TinyProxy
 - 下载 FRP 内网穿透工具
@@ -28,7 +28,7 @@
 - UnixBench 性能测试
 - 网速测试（支持 Bench.sh 和 Speedtest）
 - VPS 信息查看
-- Python3 安装（支持 3.9 和 3.10 版本）
+- Python3 安装（apt 安装，Debian 12/13 自带 3.11/3.13）
 - 一键安装 Hermes Agent（Nous Research 的终端 AI Agent）
 
 ## 使用说明
@@ -62,3 +62,4 @@ chmod +x main.sh
 ## 更新日志
 
 - 2025/01/25: 初始版本发布
+- 2026/11/24: 过时项清理：3x-ui 单一安装源、Compose v5.8.0（优先插件）、FRP 默认 v0.72.0、aaPanel 7.0、Python3 改 apt 安装

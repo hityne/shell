@@ -82,7 +82,7 @@ function show_menu() {
     echo -e "  ${YELLOW}16.查看 VPS 信息${RES}                            ${YELLOW}17.安装 Python3${RES}"
     echo -e "  ${YELLOW}18.一键安装 Hermes${RES}"
     echo ""
-    echo -e "${RED}作者: Richard    更新时间: 2025/04/24${RES}"
+    echo -e "${RED}作者: Richard    更新时间: 2026/11/24${RES}"
     echo "==========================================================================="
     echo ""
 }

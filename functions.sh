@@ -62,7 +62,7 @@ function install_debian12() {
 function install_bt_panel() {
     local install_script="${TEMP_DIR}/install.sh"
     echo "正在安装国际版面板..."
-    wget -O "${install_script}" http://www.aapanel.com/script/install-ubuntu_6.0_en.sh && bash "${install_script}" && rm -f "${install_script}"
+    wget -O "${install_script}" https://www.aapanel.com/script/install_7.0_en.sh && bash "${install_script}" && rm -f "${install_script}"
 }
 
 # 修改SSH端口
@@ -168,33 +168,12 @@ function install_v2ray() {
     rm -f "${v2ray_script}"
 }
 
-# 安装X-UI
+# 安装X-UI（vaxilu 官方版与 FranzKafkaYu 开发版均已停更/归档，仅保留活跃维护的 3x-ui）
 function install_xui() {
-    echo "开始安装x-ui面板..."
-    local install_options="1) 官方版本  2) 开发版本  3) 3x-ui版本(默认)"
-    read_user_input "请选择安装版本" "3" "version_choice" "$install_options"
-    
+    echo "开始安装3x-ui面板..."
     local install_script="${TEMP_DIR}/xui_install.sh"
-    
-    case "$version_choice" in
-        1)
-            echo "安装x-ui官方版本..."
-            wget --no-check-certificate -O "${install_script}" "${GITHUB_MIRROR}https://github.com/vaxilu/x-ui/raw/refs/heads/main/install.sh"
-            ;;
-        2)
-            echo "安装x-ui开发版本..."
-            wget --no-check-certificate -O "${install_script}" "${GITHUB_MIRROR}https://raw.githubusercontent.com/FranzKafkaYu/x-ui/refs/heads/main/install.sh"
-            ;;
-        3)
-            echo "安装3x-ui版本..."
-            wget --no-check-certificate -O "${install_script}" "${GITHUB_MIRROR}https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh"
-            ;;
-        *)
-            echo "无效的选项，安装3x-ui版本..."
-            wget --no-check-certificate -O "${install_script}" "${GITHUB_MIRROR}https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh"
-            ;;
-    esac
-    
+    wget --no-check-certificate -O "${install_script}" "${GITHUB_MIRROR}https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh"
+
     if [ -f "${install_script}" ]; then
         chmod +x "${install_script}"
         bash "${install_script}"
@@ -305,13 +284,13 @@ function install_tinyproxy() {
 # 下载FRP包
 function download_frp() {
     echo "开始下载FRP内网穿透工具..."
-    local version_options="1) v0.61.2(默认)  2) 其他版本"
+    local version_options="1) v0.72.0(默认)  2) 其他版本"
     read_user_input "请选择FRP版本" "1" "frp_version" "$version_options"
     
     if [ "$frp_version" = "1" ]; then
-        local frp_package="$(dirname "$0")/frp_0.61.2_linux_amd64.tar.gz"
-        wget --no-check-certificate -O "${frp_package}" "${GITHUB_MIRROR}https://github.com/fatedier/frp/releases/download/v0.61.2/frp_0.61.2_linux_amd64.tar.gz"
-        echo "FRP v0.61.2下载完成: ${frp_package}"
+        local frp_package="$(dirname "$0")/frp_0.72.0_linux_amd64.tar.gz"
+        wget --no-check-certificate -O "${frp_package}" "${GITHUB_MIRROR}https://github.com/fatedier/frp/releases/download/v0.72.0/frp_0.72.0_linux_amd64.tar.gz"
+        echo "FRP v0.72.0下载完成: ${frp_package}"
     else
         read_user_input "请输入版本号(例如: 0.49.0)" "" "custom_version"
         local frp_package="$(dirname "$0")/frp_${custom_version}_linux_amd64.tar.gz"
@@ -339,11 +318,17 @@ function install_docker_and_docker_compose() {
     
     read_user_input "是否安装 Docker Compose？(y/n)" "y" "install_compose_choice"
     if [ "$install_compose_choice" != "n" ]; then
-        echo "正在安装 Docker Compose..."
-        curl -L "${GITHUB_MIRROR}https://github.com/docker/compose/releases/download/v2.27.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-        chmod +x /usr/local/bin/docker-compose
-        ln -sf /usr/local/bin/docker-compose /usr/bin/docker-compose
-        docker-compose --version
+        # 新版 Docker 由 get.docker.com 自带 docker compose v2 插件，优先用插件
+        if docker compose version &>/dev/null; then
+            echo "docker compose 插件已随 Docker 安装:"
+            docker compose version
+        else
+            echo "正在安装 Docker Compose 独立二进制..."
+            curl -L "${GITHUB_MIRROR}https://github.com/docker/compose/releases/download/v5.8.0/docker-compose-linux-$(uname -m)" -o /usr/local/bin/docker-compose
+            chmod +x /usr/local/bin/docker-compose
+            ln -sf /usr/local/bin/docker-compose /usr/bin/docker-compose
+            docker-compose --version
+        fi
         echo "Docker Compose 安装完成"
     fi
 }
@@ -469,24 +454,11 @@ function vps_info() {
     rm -f "${info_script}"
 }
 
-# 安装Python3
+# 安装Python3（Debian 12/13 的 apt 自带 3.11/3.13，旧版脚本针对已 EOL 的 Debian 11，已弃用）
 function install_python3() {
-    echo "开始安装Python3..."
-    local version_options="0) Python 3.10.11  1) Python 3.9.16"
-    read_user_input "请选择Python版本" "0" "python_version" "$version_options"
-    
-    local install_script="${TEMP_DIR}/install_python.sh"
-    if [ "$python_version" = "0" ]; then
-        echo "准备安装Python 3.10.11..."
-        wget --no-check-certificate -O "${install_script}" "${GITHUB_MIRROR}https://github.com/hityne/ssh/raw/master/install_python3.10_on_debain11.sh"
-    else
-        echo "准备安装Python 3.9.16..."
-        wget --no-check-certificate -O "${install_script}" "${GITHUB_MIRROR}https://github.com/hityne/ssh/raw/master/install_python3.9_on_debian11.sh"
-    fi
-    
-    chmod +x "${install_script}"
-    echo "开始安装Python..."
-    bash "${install_script}"
-    rm -f "${install_script}"
-    echo "Python安装完成"
+    echo "正在通过 apt 安装 Python3..."
+    apt update && apt install -y python3 python3-pip
+    echo "Python3 安装完成:"
+    python3 --version
+    pip3 --version
 } 
