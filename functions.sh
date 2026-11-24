@@ -5,6 +5,7 @@
 # 安装BBR
 function install_bbr() {
     local bbr_script="${TEMP_DIR}/bbr.sh"
+    touch /etc/sysctl.conf
     local test1=$(sed -n '/net.ipv4.tcp_congestion_control/p' /etc/sysctl.conf)
     local test2=$(sed -n '/net.core.default_qdisc/p' /etc/sysctl.conf)
     if [[ $test1 == "net.ipv4.tcp_congestion_control = bbr" && $test2 == "net.core.default_qdisc = fq" ]]; then

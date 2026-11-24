@@ -150,7 +150,7 @@ function init_github_mirror() {
             GITHUB_MIRROR="https://gh-proxy.org/"
             ;;
         *)
-            GITHUB_MIRROR="https://github.com"
+            GITHUB_MIRROR=""
             ;;
     esac
 }
