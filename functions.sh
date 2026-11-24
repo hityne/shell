@@ -100,6 +100,10 @@ function set_localtime_to_china_zone() {
     read_user_input "是否开启开机自动同步时间" "n" "auto_sync" "$sync_options"
     
     if [ "$auto_sync" = "y" ]; then
+        if [ ! -x /usr/sbin/ntpdate ]; then
+            echo "ntpdate 不存在，尝试安装..."
+            apt install -y ntpsec-ntpdate 2>/dev/null || apt install -y ntp
+        fi
         local mystart_script="${TEMP_DIR}/mystart.sh"
         echo "配置自动同步..."
         wget --no-check-certificate -O "${mystart_script}" "${GITHUB_MIRROR}https://github.com/hityne/ssh/raw/master/mystart.sh"
@@ -122,9 +126,15 @@ function install_debian_essentials() {
     echo "正在更新系统..."
     apt update && apt dist-upgrade -y
     
-    # 安装必要包
+    # 安装必要包（Debian 13 起 ntp/ntpdate 被移除，改用 ntpsec-ntpdate，同样提供 /usr/sbin/ntpdate）
     echo "正在安装必要软件包..."
-    apt install -y git wget curl vim screen ufw ntp ntpdate
+    local version_id
+    version_id="$(. /etc/os-release && echo "${VERSION_ID%%.*}")"
+    if [ "${version_id:-0}" -ge 13 ]; then
+        apt install -y git wget curl vim screen ufw ntpsec-ntpdate
+    else
+        apt install -y git wget curl vim screen ufw ntp ntpdate
+    fi
     
     # 安装语言包
     echo "正在配置语言环境..."
